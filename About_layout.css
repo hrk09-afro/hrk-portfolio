@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   About Section Layout
+   ========================================================================== */
+.about-section {
+    padding: 40px 0;
+    /* width設定はcommon.cssの .m-content で管理するため削除 */
+}
+
+/* ページタイトルスタイル */
+.section-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: baseline;
+}
+
+.section-header h2 {
+    font-size: clamp(36px, 4vw, 60px);
+    margin-right: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section-header .jp-title {
+    font-size: clamp(16px, 2vw, 24px); /* 少しサイズ調整 */
+    color: var(--text-sub); /* 共通変数を使用 */
+}
+
+/* Aboutコンテンツレイアウト (画像とテキストの横並び) */
+.about-content {
+    display: flex;
+    gap: 60px; /* 余白を少し広げてゆったりさせる */
+    align-items: flex-start;
+}
+
+/* ==========================================================================
+   Profile Image
+   ========================================================================== */
+.profile-image {
+    background-color: #555;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* 少し影を追加 */
+}
+
+/* 画像のアスペクト比維持 */
+.profile-image::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
+
+.profile-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ==========================================================================
+   Profile Text
+   ========================================================================== */
+.profile-text {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative; /* 装飾線の基準 */
+}
+
+.profile-text h1 {
+    font-size: clamp(32px, 3.5vw, 50px);
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: 0.1em; /* ★ここを追加（0.05em〜0.2emの間で調整可能） */
+}
+
+.profile-text h3 {
+    font-size: clamp(20px, 2vw, 28px);
+    margin: 0 0 10px 0;
+    color: var(--text-sub);
+    font-weight: normal;
+}
+
+.profile-text .role-text {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-main);
+    font-weight: bold;
+    margin: 0;
+}
+
+.profile-text .description-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-sub);
+    margin-top: 10px;
+}
+
+/* ==========================================================================
+   Decoration (Z-Pattern Line)
+   ========================================================================== */
+.decorative-line {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 150px;
+    height: 100px;
+    border-left: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: skewX(-20deg);
+    opacity: 0.3;
+}
+.role-text {
+letter-spacing: 0.1em;
+}

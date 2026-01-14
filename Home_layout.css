@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   Home Grid System
+   ========================================================================== */
+.home-section {
+    padding: 40px 0; /* 左右paddingはcommonのm-contentで制御済みなので0 */
+    display: block;  /* Flex解除（m-content内で自然に配置） */
+}
+
+.home-grid {
+    display: grid;
+    /* 列: 1.5 : 1 : 1 */
+    grid-template-columns: 1.5fr 1fr 1fr;
+    /* 行: Portfolio(短) : Photo(正方形) : Work(長) */
+    grid-template-rows: 0.8fr 1.2fr 2.0fr; /* 比率を微調整しました */
+    gap: 20px;
+    width: 100%;
+    height: 600px; /* PC版での基準高さ（これがないとfrが効きにくい場合があるため） */
+}
+
+/* ==========================================================================
+   Overlay Image Logic (Work Box等の画像重ね)
+   ========================================================================== */
+.clickable-box .overlay-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* 少しゆっくりに */
+    z-index: 1;
+    pointer-events: none;
+}
+
+.clickable-box .overlay-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.6); /* 画像を少し暗くして文字を読みやすく */
+}
+
+.clickable-box:hover .overlay-image {
+    opacity: 1; /* 明確に表示 */
+}
+
+/* コンテンツを画像の上に表示させる */
+.clickable-box .box-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* テキストを下揃えにする場合（お好みで） */
+}
+
+/* ==========================================================================
+   Grid Areas (各ボックスの配置)
+   ========================================================================== */
+
+/* 1. Portfolio (左上) */
+.portfolio-box {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+.portfolio-box h2 {
+    font-size: clamp(24px, 3vw, 40px); /* 少しサイズ調整 */
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+
+/* 2. Contact (左下: 長く伸びる) */
+.contact-box {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+.contact-box h3 {
+    font-size: clamp(20px, 2.5vw, 32px);
+    margin-bottom: 5px;
+}
+
+/* 3. Profile Image (中央: 正方形) */
+.profile-image-box {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    /* common.cssの設定に加え、Home特有の補正 */
+    background-color: #555;
+    padding: 0; /* 画像を枠いっぱいにするためpadding削除 */
+    aspect-ratio: auto; /* グリッドに従うため解除 */
+}
+.profile-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 4. About Me (右上: 正方形) */
+.about-me-box {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+    aspect-ratio: auto;
+    
+    /* 【修正】common.cssの設定が効いていない場合に備え、ここで強制的に余白を指定します */
+    padding: 20px !important; 
+    box-sizing: border-box !important;
+}
+
+.about-me-box .box-content {
+    /* 【修正】絶対配置を完全にリセットし、親のpaddingに従わせます */
+    position: relative !important; 
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    
+    /* テキストを左上揃えにする設定 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 上揃え */
+    align-items: flex-start;     /* 左揃え */
+}
+
+/* About Meのタイトル文字サイズ微調整 */
+.about-me-box h3 {
+    font-size: clamp(20px, 2.5vw, 32px);
+    margin-bottom: 5px;
+    margin-top: 0; /* 上部の余計な隙間を削除 */
+}
+/* 5. Work (右下: 横長) */
+.work-box {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+}
+.work-box h3 {
+    font-size: clamp(20px, 2.5vw, 32px);
+    margin-bottom: 5px;
+}
+
+
+/* ==========================================================================
+   Responsive (スマホ対応)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .home-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto; /* 行の高さを自動に */
+        height: auto;
+        gap: 15px;
+    }
+
+    .portfolio-box,
+    .contact-box,
+    .profile-image-box,
+    .about-me-box,
+    .work-box {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 200px; /* スマホでの最低高さを確保 */
+    }
+}

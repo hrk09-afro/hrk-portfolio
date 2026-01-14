@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   Base Styles (全体設定)
+   ========================================================================== */
+:root {
+    --bg-color: #2b2b2b;       /* ダークグレー背景 */
+    --box-bg-color: #333333;   /* ボックス背景 */
+    --text-main: #f4f4f4;      /* メインテキスト (白に近いグレー) */
+    --text-sub: #aaaaaa;       /* サブテキスト (薄いグレー) */
+    --accent-glow: rgba(255, 255, 255, 0.15); /* 発光エフェクト */
+    --content-width: 1000px;   /* コンテンツ幅の統一 */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
+/* ==========================================================================
+   Header (ヘッダー)
+   ========================================================================== */
+.m-header {
+    width: 100%;
+    background-color: var(--bg-color);
+    padding: 20px 0;
+    position: relative;
+    z-index: 100;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+}
+
+.header-content {
+    width: var(--content-width);
+    max-width: 90%; /* スマホ対応 */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title a {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.m-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.m-nav a {
+    font-size: 16px;
+    color: var(--text-sub);
+    font-weight: 500;
+    /* 色の変化を少しゆっくりにして高級感を出す */
+    transition: color 0.3s, text-shadow 0.3s; 
+}
+
+.m-nav a:hover {
+    color: #ffffff; /* ホバー時は真っ白に */
+    
+    /* ★ここが発光の魔法です */
+    text-shadow: 
+        0 0 8px rgba(255, 255, 255, 0.6),  /* 内側の強い光 */
+        0 0 15px rgba(255, 255, 255, 0.3); /* 外側のふわっとした光 */
+}
+
+/* ==========================================================================
+   Common Layout (共通レイアウト)
+   ========================================================================== */
+.m-content {
+    width: var(--content-width);
+    max-width: 90%;
+    margin: 0 auto;
+    min-height: 60vh; /* コンテンツが少なくてもある程度の高さを確保 */
+}
+
+/* ==========================================================================
+   Interactive Box (共通: クリック可能なボックスのスタイル)
+   ========================================================================== */
+/* Homeだけでなく、Workなどでも使える共通クラス */
+.clickable-box, 
+.profile-image-box {
+    background-color: var(--box-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden; /* 画像のはみ出し防止 */
+    position: relative;
+    color: var(--text-main);
+}
+
+/* マウスオーバー時の共通動作（浮き上がり＋発光） */
+.clickable-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+.box-content h2,
+.box-content h3 {
+    margin-top: 0;
+}
+
+.naiyou {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Footer (フッター)
+   ========================================================================== */
+.m-footer {
+    width: 100%;
+    padding: 60px 0 40px;
+    background-color: var(--bg-color);
+    border-top: 1px solid #444; /* 区切り線 */
+    margin-top: 60px;
+}
+
+/* フッター内部の共通コンテナ設定 */
+.footer-inner-home, 
+.footer-inner {
+    width: var(--content-width);
+    max-width: 90%;
+    margin: 0 auto;
+    /* Flex設定は各ページレイアウトまたは下記で一般化 */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.social-follow-section p,
+.footer-info-section .name {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-info-section .role {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.social-icons span {
+    margin-right: 15px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.social-icons span:hover {
+    color: var(--text-main);
+}
+
+.footer-nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-nav a {
+    font-size: 14px;
+    color: var(--text-sub);
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.footer-nav a:hover {
+    color: #ffffff;
+    
+    /* ★ヘッダーと同じ発光エフェクト */
+    text-shadow: 
+        0 0 8px rgba(255, 255, 255, 0.6), 
+        0 0 15px rgba(255, 255, 255, 0.3);
+}
+/* ==========================================================================
+   Responsive Common (共通レスポンシブ)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .footer-inner-home, 
+    .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .footer-nav ul {
+        justify-content: center;
+    }
+}
